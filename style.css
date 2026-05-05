@@ -1,0 +1,475 @@
+/* ─── Base ─────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #FAF6EE;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
+/* Global glass effect for sections */
+section {
+  background: rgba(250, 246, 238, 0.82);
+  backdrop-filter: blur(4px);
+}
+
+/* ─── Gold Ornament Lines ───────────────────── */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #B8975A 30%, #D4B483 50%, #B8975A 70%, transparent);
+}
+
+.gold-line-v {
+  width: 1px;
+  background: linear-gradient(180deg, transparent, #B8975A 30%, #D4B483 50%, #B8975A 70%, transparent);
+}
+
+/* ─── Decorative corner frames ──────────────── */
+.corner-frame {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+}
+
+.corner-frame::before,
+.corner-frame::after {
+  content: '';
+  position: absolute;
+  background: #B8975A;
+}
+
+.corner-frame::before {
+  width: 100%;
+  height: 1px;
+  top: 0;
+  left: 0;
+}
+
+.corner-frame::after {
+  width: 1px;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.corner-frame.tr {
+  top: 28px;
+  right: 28px;
+  transform: rotate(90deg);
+}
+
+.corner-frame.bl {
+  bottom: 28px;
+  left: 28px;
+  transform: rotate(270deg);
+}
+
+.corner-frame.br {
+  bottom: 28px;
+  right: 28px;
+  transform: rotate(180deg);
+}
+
+.corner-frame.tl {
+  top: 28px;
+  left: 28px;
+}
+
+/* ─── Shimmer text (Simplified) ──────────────── */
+.text-gold-shimmer {
+  color: #B8975A;
+}
+
+/* ─── Animated delay utilities ──────────────── */
+.delay-200 { animation-delay: 0.2s; animation-fill-mode: both; }
+.delay-400 { animation-delay: 0.4s; animation-fill-mode: both; }
+.delay-600 { animation-delay: 0.6s; animation-fill-mode: both; }
+.delay-800 { animation-delay: 0.8s; animation-fill-mode: both; }
+.delay-1000 { animation-delay: 1.0s; animation-fill-mode: both; }
+.delay-1200 { animation-delay: 1.2s; animation-fill-mode: both; }
+.delay-1400 { animation-delay: 1.4s; animation-fill-mode: both; }
+.delay-1600 { animation-delay: 1.6s; animation-fill-mode: both; }
+
+/* ── Custom Scrollbar ── */
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: rgba(184, 151, 90, 0.05); }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(184, 151, 90, 0.3);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(184, 151, 90, 0.5); }
+
+/* Initial hidden state for animated elements */
+.animate-fade-up,
+.animate-fade-in,
+.animate-scale-in,
+.animate-clip-up,
+.animate-line-expand {
+  opacity: 0;
+}
+
+.animate-fade-up.visible { animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in.visible { animation: fadeIn 1.4s ease both; }
+.animate-scale-in.visible { animation: scaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-clip-up.visible { animation: clipUp 2s cubic-bezier(0.19, 1, 0.22, 1) both; }
+.animate-line-expand.visible { animation: lineExpand 1.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ── Keyframes ── */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes scaleIn {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes lineExpand {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+@keyframes clipUp {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes openingZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15); }
+}
+
+.animate-opening-zoom {
+  animation: openingZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes bgZoom {
+  0% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Festive Entrance Animations */
+@keyframes petalFall {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(var(--drift, 100px), 110vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes flower-tl {
+  0% { transform: translate(-60px, -60px) rotate(-15deg) scale(0.9); opacity: 0; }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+}
+@keyframes flower-tr {
+  0% { transform: translate(60px, -60px) rotate(15deg) scale(0.9) scaleX(-1); opacity: 0; }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1) scaleX(-1); opacity: 1; }
+}
+@keyframes flower-bl {
+  0% { transform: translate(-60px, 60px) rotate(15deg) scale(0.9) scaleX(-1); opacity: 0; }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1) scaleX(-1); opacity: 1; }
+}
+@keyframes flower-br {
+  0% { transform: translate(60px, 60px) rotate(-15deg) scale(0.9); opacity: 0; }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+}
+
+.animate-flower-tl { animation: flower-tl 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-flower-tr { animation: flower-tr 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-flower-bl { animation: flower-bl 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-flower-br { animation: flower-br 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes card-reveal {
+  0% { transform: scale(0.9) translateY(30px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.animate-card-reveal {
+  opacity: 0;
+  animation: card-reveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.festive-petal {
+  position: fixed;
+  top: -50px;
+  z-index: 45;
+  pointer-events: none;
+  animation: petalFall var(--duration, 8s) linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes flower-sway {
+  0% { transform: rotate(0deg) translate(0, 0); }
+  50% { transform: rotate(4deg) translate(12px, 8px); }
+  100% { transform: rotate(0deg) translate(0, 0); }
+}
+.animate-sway {
+  animation: flower-sway 6s ease-in-out infinite;
+}
+
+/* ── 3D Perspective Photo Reveals ── */
+@keyframes photo-reveal-left {
+  0% { transform: perspective(1200px) rotateY(-45deg) translateX(-100px) scale(0.8); opacity: 0; }
+  100% { transform: perspective(1200px) rotateY(0deg) translateX(0) scale(1); opacity: 1; }
+}
+@keyframes perspective-reveal-right {
+  0% { transform: perspective(1200px) rotateY(45deg) translateX(100px) scale(0.8); opacity: 0; }
+  100% { transform: perspective(1200px) rotateY(0deg) translateX(0) scale(1); opacity: 1; }
+}
+@keyframes frame-zoom {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-photo-left.visible { animation: photo-reveal-left 2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-photo-right.visible { animation: perspective-reveal-right 2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-frame-zoom.visible { animation: frame-zoom 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes sparkle {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.5); opacity: 0.8; }
+}
+
+/* ── Golden Curtain Entrance ── */
+body.curtain-open { overflow: hidden; }
+#golden-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}
+.curtain-panel {
+  position: absolute;
+  top: 0;
+  width: 51%;
+  height: 100%;
+  will-change: transform;
+}
+.curtain-panel canvas { width: 100%; height: 100%; display: block; }
+.curtain-panel.left  { left: 0; transform-origin: left; }
+.curtain-panel.right { right: 0; transform-origin: right; }
+
+.curtain-panel.left.opening { animation: curtainOpenLeft 3.2s cubic-bezier(0.85, 0, 0.15, 1) forwards; }
+.curtain-panel.right.opening { animation: curtainOpenRight 3.2s cubic-bezier(0.85, 0, 0.15, 1) forwards; }
+
+@keyframes curtainOpenLeft { 0% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+@keyframes curtainOpenRight { 0% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+
+.curtain-rays {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(ellipse 60% 80% at 50% 50%,
+    rgba(255, 248, 200, 0.95) 0%,
+    rgba(255, 215, 0, 0.4) 30%,
+    rgba(212, 175, 55, 0.15) 60%,
+    transparent 80%
+  );
+  opacity: 0;
+  animation: raysReveal 3.2s ease-in-out forwards;
+}
+
+@keyframes raysReveal {
+  0% { opacity: 0; transform: scale(0.6); }
+  30% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+.hero-overlay {
+  background: radial-gradient(ellipse 70% 60% at 50% 50%,
+      rgba(250, 246, 238, 0.4) 0%,
+      rgba(250, 246, 238, 0.6) 55%,
+      rgba(250, 246, 238, 0.85) 100%);
+}
+
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ornament-divider span { font-size: 18px; color: #B8975A; line-height: 1; }
+
+/* ─── CTA button (Premium & Prominent) ──────────────── */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #8A6C35 0%, #B8975A 50%, #D4B483 100%);
+  color: white;
+  letter-spacing: 0.3em;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 18px 48px;
+  border: none;
+  box-shadow: 0 10px 25px -5px rgba(138, 108, 53, 0.4);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn-gold:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 35px -5px rgba(138, 108, 53, 0.6);
+  color: white;
+}
+
+/* Shimmering shine effect */
+.btn-gold::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0) 60%,
+      transparent 100%);
+  transform: rotate(45deg);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -150%; }
+  20% { left: 150%; }
+  100% { left: 150%; }
+}
+
+.btn-gold span {
+  position: relative;
+  z-index: 10;
+}
+
+/* ─── Countdown ─────────────────────────────── */
+.countdown-box {
+  border: 1px solid rgba(184, 151, 90, 0.35);
+  background: rgba(250, 246, 238, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 18px 24px;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+/* ── Music Wave Animations ── */
+@keyframes musicWave {
+  0%, 100% { height: 4px; }
+  50% { height: 12px; }
+}
+
+.animate-music-wave-1 { animation: musicWave 1s ease-in-out infinite; }
+.animate-music-wave-2 { animation: musicWave 0.8s ease-in-out infinite 0.2s; }
+.animate-music-wave-3 { animation: musicWave 1.2s ease-in-out infinite 0.4s; }
+
+/* Mobile safe area for music button */
+@media (max-width: 640px) {
+  #music-toggle {
+    bottom: 24px;
+    right: 24px;
+  }
+}
+
+/* ─── Responsive ────────────────────────────── */
+@media (max-width: 640px) {
+  .corner-frame {
+    width: 50px;
+    height: 50px;
+  }
+  .corner-frame.tr, .corner-frame.br { right: 16px; }
+  .corner-frame.bl, .corner-frame.tl { left: 16px; }
+  .corner-frame.tl, .corner-frame.tr { top: 16px; }
+  .corner-frame.bl, .corner-frame.br { bottom: 16px; }
+
+  /* Hero Section Mobile Adjustments */
+  .hero-names span {
+    font-size: 36px !important;
+    letter-spacing: 0.05em !important;
+  }
+  
+  .hero-and span {
+    font-size: 18px !important;
+  }
+
+  .hero-countdown {
+    gap: 6px !important;
+  }
+
+  .countdown-box {
+    padding: 10px 6px !important;
+    min-width: 55px !important;
+  }
+
+  .countdown-box p:first-child {
+    font-size: 20px !important;
+  }
+
+  .hero-divider span {
+    font-size: 7px !important;
+    letter-spacing: 0.15em !important;
+  }
+
+  .hero-info {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .hero-cta {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Bottom ornaments adjustment */
+  .animate-flower-bl, .animate-flower-br {
+    bottom: 0px !important;
+  }
+  .animate-flower-bl { left: 0px !important; }
+  .animate-flower-br { right: 0px !important; }
+}
+
+/* ── Custom Scrollbar Global ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #B8975A; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #8A6C35; }
+
+/* ── Love Story Section ── */
+#love-story {
+  background-color: #FAF6EE; /* Ivory */
+}
+
+.story-item {
+  will-change: transform, opacity;
+}
+
+.story-image img {
+  filter: grayscale(20%);
+}
+
+.timeline-line {
+  background: linear-gradient(to bottom, transparent, #B8975A 10%, #B8975A 90%, transparent);
+}
+
+.story-dot {
+  background: white;
+  box-shadow: 0 0 15px rgba(184, 151, 90, 0.2);
+}
