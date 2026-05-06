@@ -163,10 +163,13 @@ section {
 
 /* Festive Entrance Animations */
 @keyframes petalFall {
-  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  0% { transform: translateY(-10vh) translateX(0) rotate(0deg) rotateX(0deg); opacity: 0; }
   10% { opacity: 0.8; }
+  25% { transform: translateY(25vh) translateX(var(--drift)) rotate(90deg) rotateX(45deg); }
+  50% { transform: translateY(50vh) translateX(calc(var(--drift) * -0.5)) rotate(180deg) rotateY(180deg); }
+  75% { transform: translateY(75vh) translateX(var(--drift)) rotate(270deg) rotateX(45deg); }
   90% { opacity: 0.8; }
-  100% { transform: translate(var(--drift, 100px), 110vh) rotate(360deg); opacity: 0; }
+  100% { transform: translateY(110vh) translateX(0) rotate(360deg) rotateX(0deg); opacity: 0; }
 }
 
 @keyframes flower-tl {
@@ -205,9 +208,13 @@ section {
   top: -50px;
   z-index: 45;
   pointer-events: none;
-  animation: petalFall var(--duration, 8s) linear infinite;
+  animation: petalFall var(--duration, 8s) ease-in-out infinite;
   opacity: 0.8;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.05));
 }
+
+.festive-petal.blur-sm { filter: blur(1px) drop-shadow(0 5px 10px rgba(0,0,0,0.03)); }
+.festive-petal.blur-md { filter: blur(2px) drop-shadow(0 5px 10px rgba(0,0,0,0.02)); }
 
 @keyframes flower-sway {
   0% { transform: rotate(0deg) translate(0, 0); }

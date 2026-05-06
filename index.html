@@ -17,6 +17,7 @@
 
   <!-- External Styles -->
   <link rel="stylesheet" href="style.css" />
+  <script src="data-content.js"></script>
 
   <!-- Tailwind CSS CDN v3 -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -57,7 +58,7 @@
 
     <!-- Background Image with Zoom Animation -->
     <div class="absolute inset-0 z-0 scale-105 animate-opening-zoom">
-      <img src="opening.png" alt="Opening Background" class="w-full h-full object-cover">
+      <img id="opening-img" src="opening.png" alt="Opening Background" class="w-full h-full object-cover">
     </div>
 
     <!-- Minimalist Transparent Overlay (To capture clicks) -->
@@ -68,7 +69,7 @@
   <div class="fixed inset-0 pointer-events-none z-[1] overflow-hidden" aria-hidden="true">
     <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1400px] h-auto opacity-[0.12]"
       aria-hidden="true">
-      <img src="image-center.png" alt="Center Decor" class="w-full h-auto object-contain">
+      <img id="center-decor-img" src="image-center.png" alt="Center Decor" class="w-full h-auto object-contain">
     </div>
   </div>
 
@@ -80,6 +81,8 @@
       <img src="flower.png" alt="Flower Ornament Left" class="w-full h-auto select-none animate-sway"
         style="filter: drop-shadow(2px 2px 15px rgba(0,0,0,0.05)); clip-path: inset(0 0 30% 0);">
     </div>
+
+
     <div class="absolute -top-5 -right-5 w-72 sm:w-96 md:w-[600px] opacity-0 animate-flower-tr"
       style="animation-delay: 3.4s;">
       <img src="flower.png" alt="Flower Ornament Right" class="w-full h-auto select-none animate-sway"
@@ -98,25 +101,62 @@
         style="filter: drop-shadow(-2px -2px 15px rgba(0,0,0,0.05));">
     </div>
 
-    <!-- Falling Petals (Fixed) -->
-    <svg class="festive-petal" style="left: 5%; --duration: 7s; --drift: 120px; width: 20px;" viewBox="0 0 40 50">
-      <ellipse cx="20" cy="25" rx="12" ry="22" fill="#E8C4B0" transform="rotate(-15 20 25)" />
+    <!-- Falling Rose Petals (Brightened & Textured) -->
+    <svg class="festive-petal" style="left: 5%; --duration: 7s; --drift: 120px; width: 22px;" viewBox="0 0 40 50">
+      <defs>
+        <linearGradient id="gradPeach" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#FFFDF7" />
+          <stop offset="100%" stop-color="#F2D8C8" />
+        </linearGradient>
+        <linearGradient id="gradSalmon" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#F2D8C8" />
+          <stop offset="100%" stop-color="#E8B89F" />
+        </linearGradient>
+      </defs>
+      <path d="M20,10 C10,10 5,22 5,35 C5,45 15,48 20,48 C25,48 35,45 35,35 C35,22 30,10 20,10 Z" fill="url(#gradSalmon)" />
+      <path d="M20,15 Q22,30 20,45" stroke="#C49A84" stroke-opacity="0.3" fill="none" stroke-width="0.6" />
+      <path d="M20,20 Q15,30 18,40" stroke="#C49A84" stroke-opacity="0.2" fill="none" stroke-width="0.4" />
     </svg>
-    <svg class="festive-petal" style="left: 25%; --duration: 9s; --drift: -80px; width: 16px; animation-delay: 2s;"
-      viewBox="0 0 40 50">
-      <ellipse cx="20" cy="25" rx="12" ry="22" fill="#D4B483" transform="rotate(20 20 25)" />
+
+    <svg class="festive-petal blur-sm" style="left: 15%; --duration: 12s; --drift: -100px; width: 16px; animation-delay: 5s;" viewBox="0 0 40 50">
+      <path d="M20,12 C12,12 8,24 8,35 C8,44 14,46 20,46 C26,46 32,44 32,35 C32,24 28,12 20,12 Z" fill="url(#gradPeach)" />
+      <path d="M20,18 Q18,30 20,42" stroke="#C49A84" stroke-opacity="0.25" fill="none" stroke-width="0.5" />
     </svg>
-    <svg class="festive-petal" style="left: 45%; --duration: 8s; --drift: 150px; width: 22px; animation-delay: 4s;"
-      viewBox="0 0 40 50">
-      <ellipse cx="20" cy="25" rx="12" ry="22" fill="#B8975A" transform="rotate(5 20 25)" />
+    <svg class="festive-petal" style="left: 25%; --duration: 9s; --drift: -80px; width: 18px; animation-delay: 2s;" viewBox="0 0 40 50">
+      <path d="M20,10 C10,10 5,22 5,35 C5,45 15,48 20,48 C25,48 35,45 35,35 C35,22 30,10 20,10 Z" fill="url(#gradSalmon)" />
+      <path d="M20,15 Q23,28 20,44" stroke="#C49A84" stroke-opacity="0.3" fill="none" stroke-width="0.6" />
+      <path d="M20,22 Q25,30 22,42" stroke="#C49A84" stroke-opacity="0.2" fill="none" stroke-width="0.4" />
     </svg>
-    <svg class="festive-petal" style="left: 65%; --duration: 10s; --drift: -100px; width: 18px; animation-delay: 1s;"
-      viewBox="0 0 40 50">
-      <ellipse cx="20" cy="25" rx="12" ry="22" fill="#E8C4B0" transform="rotate(-10 20 25)" />
+    <svg class="festive-petal blur-md" style="left: 35%; --duration: 15s; --drift: 60px; width: 14px; animation-delay: 8s;" viewBox="0 0 40 50">
+      <path d="M20,15 C14,15 11,25 11,35 C11,42 16,44 20,44 C24,44 29,42 29,35 C29,25 26,15 20,15 Z" fill="url(#gradPeach)" />
+      <path d="M20,20 Q21,30 20,40" stroke="#C49A84" stroke-opacity="0.25" fill="none" stroke-width="0.5" />
     </svg>
-    <svg class="festive-petal" style="left: 85%; --duration: 7s; --drift: 90px; width: 20px; animation-delay: 3s;"
-      viewBox="0 0 40 50">
-      <ellipse cx="20" cy="25" rx="12" ry="22" fill="#D4B483" transform="rotate(10 20 25)" />
+    <svg class="festive-petal" style="left: 45%; --duration: 8s; --drift: 150px; width: 24px; animation-delay: 4s;" viewBox="0 0 40 50">
+      <path d="M20,8 C10,8 4,20 4,35 C4,46 14,49 20,49 C26,49 36,46 36,35 C36,20 30,8 20,8 Z" fill="url(#gradSalmon)" />
+      <path d="M20,12 Q25,30 20,46" stroke="#C49A84" stroke-opacity="0.35" fill="none" stroke-width="0.7" />
+      <path d="M20,18 Q15,32 18,44" stroke="#C49A84" stroke-opacity="0.2" fill="none" stroke-width="0.5" />
+    </svg>
+    <svg class="festive-petal blur-sm" style="left: 55%; --duration: 11s; --drift: -120px; width: 20px; animation-delay: 6s;" viewBox="0 0 40 50">
+      <path d="M20,10 C10,10 5,22 5,35 C5,45 15,48 20,48 C25,48 35,45 35,35 C35,22 30,10 20,10 Z" fill="url(#gradPeach)" />
+      <path d="M20,15 Q17,30 20,45" stroke="#C49A84" stroke-opacity="0.25" fill="none" stroke-width="0.5" />
+    </svg>
+    <svg class="festive-petal" style="left: 65%; --duration: 10s; --drift: -100px; width: 20px; animation-delay: 1s;" viewBox="0 0 40 50">
+      <path d="M20,10 C12,10 8,20 8,32 C8,42 15,45 20,45 C25,45 32,42 32,32 C32,20 28,10 20,10 Z" fill="url(#gradSalmon)" />
+      <path d="M20,15 Q21,28 20,40" stroke="#C49A84" stroke-opacity="0.35" fill="none" stroke-width="0.6" />
+      <path d="M20,20 Q18,30 19,38" stroke="#C49A84" stroke-opacity="0.2" fill="none" stroke-width="0.4" />
+    </svg>
+    <svg class="festive-petal" style="left: 75%; --duration: 13s; --drift: 110px; width: 17px; animation-delay: 7s;" viewBox="0 0 40 50">
+      <path d="M20,12 C13,12 9,22 9,33 C9,41 14,43 20,43 C26,43 31,41 31,33 C31,22 27,12 20,12 Z" fill="url(#gradPeach)" />
+      <path d="M20,18 Q22,30 20,40" stroke="#C49A84" stroke-opacity="0.25" fill="none" stroke-width="0.5" />
+    </svg>
+    <svg class="festive-petal" style="left: 85%; --duration: 7s; --drift: 90px; width: 22px; animation-delay: 3s;" viewBox="0 0 40 50">
+      <path d="M20,10 C10,10 5,22 5,35 C5,45 15,48 20,48 C25,48 35,45 35,35 C35,22 30,10 20,10 Z" fill="url(#gradSalmon)" />
+      <path d="M20,15 Q22,30 20,45" stroke="#C49A84" stroke-opacity="0.35" fill="none" stroke-width="0.6" />
+      <path d="M20,22 Q18,35 19,42" stroke="#C49A84" stroke-opacity="0.2" fill="none" stroke-width="0.4" />
+    </svg>
+    <svg class="festive-petal blur-sm" style="left: 95%; --duration: 14s; --drift: -50px; width: 18px; animation-delay: 9s;" viewBox="0 0 40 50">
+      <path d="M20,13 C14,13 10,23 10,33 C10,40 15,42 20,42 C25,42 30,40 30,33 C30,23 26,13 20,13 Z" fill="url(#gradPeach)" />
+      <path d="M20,18 Q20,30 20,40" stroke="#C49A84" stroke-opacity="0.2" fill="none" stroke-width="0.4" />
     </svg>
   </div>
 
@@ -150,7 +190,7 @@
       <h1 class="font-serif font-light leading-[1.1] sm:leading-none select-none hero-names">
         <div>
           <div class="overflow-hidden">
-            <span
+            <span id="hero-name-left"
               class="hero-name-left block text-gold-shimmer text-[40px] sm:text-[76px] md:text-[96px] italic tracking-wide">
               Rafi
             </span>
@@ -163,7 +203,7 @@
         </div>
         <div>
           <div class="overflow-hidden">
-            <span
+            <span id="hero-name-right"
               class="hero-name-right block text-gold-shimmer text-[40px] sm:text-[76px] md:text-[96px] italic tracking-wide">
               Salsabila
             </span>
@@ -175,8 +215,8 @@
       <div class="ornament-divider mt-4 sm:mt-6 mb-4 sm:mb-6 hero-divider">
         <div class="gold-line flex-1 max-w-[60px] sm:max-w-[80px]"></div>
         <span>✦</span>
-        <span
-          class="font-sans text-[8px] sm:text-[9px] tracking-widest-2 sm:tracking-widest-3 text-gold font-light uppercase">Bersatu
+        <span id="hero-divider-label"
+          class="font-sans text-[7px] sm:text-[9px] tracking-widest-2 sm:tracking-widest-3 text-gold font-light uppercase">Bersatu
           dalam Cinta</span>
         <span>✦</span>
         <div class="gold-line flex-1 max-w-[60px] sm:max-w-[80px]"></div>
@@ -194,11 +234,11 @@
         </div>
 
         <div class="space-y-1 sm:space-y-2">
-          <p class="font-serif italic text-[16px] sm:text-[24px] text-charcoal/90 leading-tight">
+          <p id="hero-time" class="font-serif italic text-[16px] sm:text-[24px] text-charcoal/90 leading-tight">
             Pukul 10.00 WIB — Selesai
           </p>
           <div class="text-gold/40 text-[8px] sm:text-[10px]">✦</div>
-          <p
+          <p id="hero-venue"
             class="font-sans font-medium tracking-[0.15em] sm:tracking-[0.25em] text-[10px] sm:text-[13px] text-charcoal uppercase max-w-[240px] sm:max-w-none mx-auto">
             Grand Ballroom The Ritz-Carlton, Jakarta
           </p>
@@ -238,8 +278,8 @@
       <!-- Bottom label -->
       <div
         class="hero-bottom-label px-6 sm:px-8 py-2 sm:py-3 border-y border-gold/25 inline-block max-w-[280px] sm:max-w-none">
-        <p
-          class="font-sans font-medium text-[10px] sm:text-[13px] tracking-[0.15em] sm:tracking-[0.25em] uppercase text-charcoal leading-relaxed">
+        <p id="hero-bottom-invite"
+          class="font-sans font-medium text-[9px] sm:text-[13px] tracking-[0.15em] sm:tracking-[0.25em] uppercase text-charcoal leading-relaxed">
           Dengan penuh kebahagiaan, kami mengundang kehadiran anda
         </p>
       </div>
@@ -271,19 +311,19 @@
     <div class="max-w-5xl mx-auto relative z-10 text-center">
 
       <!-- Greeting / Intro -->
-      <div class="mb-12 sm:mb-20 couple-greeting px-2">
-        <p class="font-serif italic text-gold text-lg sm:text-2xl mb-4 leading-relaxed greeting-title">Assalamu'alaikum
+      <div class="mb-12 sm:mb-20 couple-greeting px-8 sm:px-2">
+        <p class="font-serif italic text-gold text-base sm:text-2xl mb-4 leading-relaxed greeting-title px-4 sm:px-0">Assalamu'alaikum
           Warahmatullahi Wabarakatuh</p>
-        <div class="greeting-quote-container">
+        <div class="greeting-quote-container px-2 sm:px-0">
           <p
-            class="font-body text-charcoal/70 max-w-2xl mx-auto leading-relaxed italic text-[14px] sm:text-[16px] greeting-quote">
+            class="font-body text-charcoal/70 max-w-2xl mx-auto leading-relaxed italic text-[12px] sm:text-[16px] greeting-quote">
             "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu
             sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan
             sayang."
           </p>
         </div>
         <p
-          class="font-sans text-[9px] sm:text-[10px] tracking-widest-2 uppercase text-gold mt-4 font-light greeting-cite">
+          class="font-sans text-[8px] sm:text-[10px] tracking-widest-2 uppercase text-gold mt-4 font-light greeting-cite">
           ( QS. Ar-Rum: 21 )</p>
       </div>
 
@@ -297,7 +337,7 @@
               class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[209%] h-[122%] max-w-none z-20 pointer-events-none groom-frame-floral" />
 
             <div class="relative w-56 h-72 sm:w-72 sm:h-96 overflow-hidden bg-ivory-dark shadow-2xl groom-photo-reveal">
-              <img src="groom.png" alt="Rafi"
+              <img id="groom-img" src="groom.png" alt="Rafi"
                 class="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 hover:scale-110 transition-all duration-1000 ease-out groom-img" />
             </div>
           </div>
@@ -332,7 +372,7 @@
               class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[209%] h-[122%] max-w-none z-20 pointer-events-none bride-frame-floral" />
 
             <div class="relative w-56 h-72 sm:w-72 sm:h-96 overflow-hidden bg-ivory-dark shadow-2xl bride-photo-reveal">
-              <img src="bride.png" alt="Salsabila"
+              <img id="bride-img" src="bride.png" alt="Salsabila"
                 class="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 hover:scale-110 transition-all duration-1000 ease-out bride-img" />
             </div>
           </div>
@@ -388,7 +428,7 @@
       <div class="text-center mb-16 sm:mb-24 story-header">
         <h2 class="font-serif text-gold text-4xl sm:text-5xl md:text-6xl italic mb-4 sm:mb-6">The Love Story</h2>
         <div class="gold-line w-20 sm:w-32 mx-auto mb-6 sm:mb-8"></div>
-        <p class="font-body text-charcoal/60 text-sm sm:text-base max-w-lg mx-auto leading-relaxed px-2">
+        <p class="font-body text-charcoal/60 text-sm sm:text-base max-w-lg mx-auto leading-relaxed px-10 sm:px-2">
           Setiap perjalanan cinta adalah unik, dan inilah penggalan kisah indah yang menyatukan kami dalam satu ikatan
           suci.
         </p>
@@ -407,7 +447,7 @@
               class="font-sans text-[9px] sm:text-[10px] tracking-widest uppercase text-gold/60 mb-3 sm:mb-4 block">Awal
               Berjumpa — 2021</span>
             <h3 class="font-serif text-2xl sm:text-3xl text-gold italic mb-4 sm:mb-6">Pertemuan Pertama</h3>
-            <p class="font-body text-charcoal/70 text-sm sm:text-base leading-relaxed italic">
+            <p class="font-body text-charcoal/70 text-xs sm:text-base leading-relaxed italic px-12 sm:px-0">
               "Di sebuah sore yang tenang, takdir mempertemukan kami di sebuah perpustakaan kota. Sebuah percakapan
               singkat tentang buku favorit yang menjadi awal dari segalanya."
             </p>
@@ -436,7 +476,7 @@
               class="font-sans text-[9px] sm:text-[10px] tracking-widest uppercase text-gold/60 mb-3 sm:mb-4 block">Menjalin
               Kasih — 2023</span>
             <h3 class="font-serif text-2xl sm:text-3xl text-gold italic mb-4 sm:mb-6">Berbagi Mimpi</h3>
-            <p class="font-body text-charcoal/70 text-sm sm:text-base leading-relaxed italic">
+            <p class="font-body text-charcoal/70 text-xs sm:text-base leading-relaxed italic px-12 sm:px-0">
               "Dua tahun berlalu, kami menyadari bahwa kami tak hanya berbagi hobi, tapi juga visi masa depan. Setiap
               tantangan kami lalui bersama, menguatkan akar cinta kami."
             </p>
@@ -465,7 +505,7 @@
               class="font-sans text-[9px] sm:text-[10px] tracking-widest uppercase text-gold/60 mb-3 sm:mb-4 block">Satu
               Komitmen — 2026</span>
             <h3 class="font-serif text-2xl sm:text-3xl text-gold italic mb-4 sm:mb-6">Menuju Pelaminan</h3>
-            <p class="font-body text-charcoal/70 text-sm sm:text-base leading-relaxed italic">
+            <p class="font-body text-charcoal/70 text-xs sm:text-base leading-relaxed italic px-12 sm:px-0">
               "Kini, kami siap melangkah ke babak baru. Membangun istana kecil yang penuh dengan keberkahan dan kasih
               sayang yang tak lekang oleh waktu."
             </p>
@@ -505,7 +545,7 @@
         <h2 class="font-serif text-gold-shimmer text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4 italic event-title">
           Informasi Acara</h2>
         <div class="gold-line w-16 sm:w-24 mx-auto mb-4 sm:mb-6 event-divider"></div>
-        <p class="font-body text-charcoal/60 text-sm sm:text-base tracking-wide event-subtitle">Kebahagiaan kami akan
+        <p class="font-body text-charcoal/60 text-xs sm:text-base tracking-wide event-subtitle px-6 sm:px-0">Kebahagiaan kami akan
           lengkap dengan kehadiran
           Bapak/Ibu/Saudara/i</p>
       </div>
@@ -1019,27 +1059,131 @@
 
   <!-- External Script Logic -->
   <script src="script.js"></script>
+
+  <!-- Mobile Side Ornaments (flower-3.png) -->
+  <div id="flower-3-l" class="fixed top-1/2 -translate-y-1/2 block sm:hidden z-[10000] pointer-events-none" 
+       style="left: -300px; width: 300px; opacity: 0;">
+    <img src="flower-3.png" alt="Side Decor Left" class="w-full h-auto" 
+         style="transform: rotate(90deg) scaleX(-1); clip-path: inset(0 0 75% 0);">
+  </div>
+  
+  <div id="flower-3-r" class="fixed top-1/2 -translate-y-1/2 block sm:hidden z-[10000] pointer-events-none" 
+       style="right: -300px; width: 300px; opacity: 0;">
+    <img src="flower-3.png" alt="Side Decor Right" class="w-full h-auto" 
+         style="transform: rotate(-90deg) scaleX(-1); clip-path: inset(0 0 75% 0);">
+  </div>
+
+  <script>
+    // Animasi Entrance untuk Ornamen Samping Mobile
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        if (typeof gsap !== 'undefined') {
+          gsap.to("#flower-3-l", {
+            duration: 1.8,
+            left: -200,
+            opacity: 1,
+            ease: "power3.out"
+          });
+          gsap.to("#flower-3-r", {
+            duration: 1.8,
+            right: -200,
+            opacity: 1,
+            ease: "power3.out"
+          });
+        }
+      }, 2000); // Muncul setelah 2 detik
+    });
+  </script>
   <!-- ══════════════════════════════════════════════
        MUSIC CONTROLS
   ══════════════════════════════════════════════ -->
   <audio id="wedding-music" loop preload="auto" src="Nothing%27s%20Gonna%20Change%20My%20Love%20for%20You.mp3"></audio>
 
-  <button id="music-toggle" onclick="toggleMusic()" 
-          class="fixed bottom-6 right-6 z-[9999] w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-gold shadow-2xl transition-all duration-500 hover:scale-110 active:scale-95 hidden">
-    <svg id="music-icon-play" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M8 5v14l11-7z"/>
-    </svg>
-    <svg id="music-icon-pause" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-    </svg>
-    
-    <!-- Music Waves Animation -->
-    <div class="music-waves absolute -top-1 -right-1 flex gap-0.5 items-end h-3">
-      <div class="w-0.5 h-full bg-gold animate-music-wave-1"></div>
-      <div class="w-0.5 h-full bg-gold animate-music-wave-2"></div>
-      <div class="w-0.5 h-full bg-gold animate-music-wave-3"></div>
+  <button id="music-toggle" onclick="toggleMusic()"
+    class="fixed bottom-6 right-6 z-[9999] w-12 h-12 bg-white/40 backdrop-blur-lg border border-gold/40 rounded-full flex items-center justify-center text-gold shadow-[0_8px_32px_rgba(184,151,90,0.2)] transition-all duration-500 hover:scale-110 active:scale-95 hidden group">
+    <div class="relative flex items-center justify-center w-full h-full">
+      <svg id="music-icon-play" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      <svg id="music-icon-pause" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+      </svg>
     </div>
   </button>
 
+  <script>
+    // --- Logic Pengisian Teks Otomatis dari data-content.js ---
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof WEDDING_DATA !== 'undefined') {
+        // Hero
+        document.getElementById('hero-name-left').textContent = WEDDING_DATA.groom.nickName;
+        document.getElementById('hero-name-right').textContent = WEDDING_DATA.bride.nickName;
+        document.getElementById('hero-divider-label').textContent = WEDDING_DATA.hero.dividerLabel;
+        document.getElementById('hero-time').textContent = WEDDING_DATA.hero.time;
+        document.getElementById('hero-venue').textContent = WEDDING_DATA.hero.venueShort;
+        document.getElementById('hero-bottom-invite').textContent = WEDDING_DATA.hero.bottomInviteLabel;
+
+        // Images - Global & Hero
+        if(document.getElementById('opening-img')) document.getElementById('opening-img').src = WEDDING_DATA.hero.openingImage;
+        if(document.getElementById('center-decor-img')) document.getElementById('center-decor-img').src = WEDDING_DATA.hero.centerDecor;
+
+        // Greeting
+        document.querySelector('.greeting-title').textContent = WEDDING_DATA.greeting.title;
+        document.querySelector('.greeting-quote').textContent = WEDDING_DATA.greeting.quote;
+        document.querySelector('.greeting-cite').textContent = WEDDING_DATA.greeting.cite;
+
+        // Couple - Groom
+        document.querySelector('.groom-name').textContent = WEDDING_DATA.groom.fullName;
+        const groomParents = document.querySelectorAll('.groom-parents p');
+        groomParents[0].textContent = WEDDING_DATA.groom.parents.father;
+        groomParents[2].textContent = WEDDING_DATA.groom.parents.mother;
+        document.querySelector('.groom-ig span').textContent = WEDDING_DATA.groom.instagram;
+        if(document.getElementById('groom-img')) document.getElementById('groom-img').src = WEDDING_DATA.groom.image;
+
+        // Couple - Bride
+        document.querySelector('.bride-name').textContent = WEDDING_DATA.bride.fullName;
+        const brideParents = document.querySelectorAll('.bride-parents p');
+        brideParents[0].textContent = WEDDING_DATA.bride.parents.father;
+        brideParents[2].textContent = WEDDING_DATA.bride.parents.mother;
+        document.querySelector('.bride-ig span').textContent = WEDDING_DATA.bride.instagram;
+        if(document.getElementById('bride-img')) document.getElementById('bride-img').src = WEDDING_DATA.bride.image;
+
+        // Love Story Header
+        document.querySelector('#love-story h2').textContent = WEDDING_DATA.loveStory.title;
+        document.querySelector('#love-story .story-header p').textContent = WEDDING_DATA.loveStory.intro;
+
+        // Milestone Stories
+        const milestoneElements = document.querySelectorAll('.story-item');
+        WEDDING_DATA.loveStory.milestones.forEach((story, index) => {
+          if (milestoneElements[index]) {
+            milestoneElements[index].querySelector('span').textContent = story.year;
+            milestoneElements[index].querySelector('h3').textContent = story.title;
+            milestoneElements[index].querySelector('p').textContent = story.content;
+            // Update Image
+            const storyImg = milestoneElements[index].querySelector('.story-image img:not([alt="Border"])');
+            if(storyImg) storyImg.src = story.image;
+          }
+        });
+
+        // Event Section
+        document.querySelector('.event-title').textContent = WEDDING_DATA.event.title;
+        document.querySelector('.event-subtitle').textContent = WEDDING_DATA.event.subtitle;
+        document.querySelector('.venue-date').textContent = WEDDING_DATA.event.date;
+
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        WEDDING_DATA.event.timeline.forEach((item, index) => {
+          if (timelineItems[index]) {
+            timelineItems[index].querySelector('span').textContent = item.time;
+            timelineItems[index].querySelector('p').textContent = item.label;
+          }
+        });
+
+        // RSVP
+        document.querySelector('#rsvpModalContent h2').textContent = WEDDING_DATA.rsvp.title;
+        document.querySelector('#rsvpModalContent .text-center p').textContent = WEDDING_DATA.rsvp.subtitle;
+      }
+    });
+  </script>
 </body>
+
 </html>
