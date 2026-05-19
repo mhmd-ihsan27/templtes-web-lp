@@ -363,3 +363,83 @@ window.addEventListener('load', function () {
     ScrollTrigger.refresh();
   }, 500);
 });
+
+/* ── Gallery Lightbox ─────────────────────────── */
+(function () {
+  const lightbox   = document.getElementById('gallery-lightbox');
+  const lbImg      = document.getElementById('lightbox-img');
+  const lbClose    = document.getElementById('lightbox-close');
+  const lbPrev     = document.getElementById('lightbox-prev');
+  const lbNext     = document.getElementById('lightbox-next');
+
+  if (!lightbox) return;
+
+  const items = Array.from(document.querySelectorAll('#gallery-grid .gallery-item'));
+  let current = 0;
+
+  function getSrc(idx) {
+    const img = items[idx]?.querySelector('img');
+    return img ? img.src : '';
+  }
+
+  function openLightbox(idx) {
+    current = idx;
+    lbImg.src = getSrc(current);
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function showSlide(idx) {
+    current = (idx + items.length) % items.length;
+    lbImg.style.opacity = '0';
+    setTimeout(() => {
+      lbImg.src = getSrc(current);
+      lbImg.style.opacity = '1';
+    }, 150);
+  }
+
+  // Open on item click
+  items.forEach((item, idx) => {
+    item.addEventListener('click', () => openLightbox(idx));
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click',  () => showSlide(current - 1));
+  lbNext.addEventListener('click',  () => showSlide(current + 1));
+
+  // Close on backdrop click
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape')      closeLightbox();
+    if (e.key === 'ArrowLeft')   showSlide(current - 1);
+    if (e.key === 'ArrowRight')  showSlide(current + 1);
+  });
+
+  /* ── Entrance animations via IntersectionObserver ── */
+  const galleryObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('is-visible');
+        }, i * 120);
+        galleryObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  items.forEach(item => galleryObserver.observe(item));
+})();
+

@@ -16,7 +16,28 @@
     rel="stylesheet" />
 
   <!-- External Styles -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3.1" />
+  <script src="lottie.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof lottie !== 'undefined') {
+        lottie.loadAnimation({
+          container: document.getElementById('butterfly-1'),
+          renderer: 'canvas',
+          loop: true,
+          autoplay: true,
+          path: 'Butterfly.json'
+        });
+        lottie.loadAnimation({
+          container: document.getElementById('butterfly-2'),
+          renderer: 'canvas',
+          loop: true,
+          autoplay: true,
+          path: 'Butterfly.json'
+        });
+      }
+    });
+  </script>
   <script src="data-content.js"></script>
 
   <!-- Tailwind CSS CDN v3 -->
@@ -50,28 +71,100 @@
 
 <body class="font-body text-charcoal antialiased overflow-hidden">
 
+  <!-- Global background overlay for performance optimization -->
+  <div id="global-background-overlay"></div>
+
+  <!-- Global Center Background Ornament (Watermark) -->
+  <div class="fixed inset-0 pointer-events-none z-[1] flex items-center justify-center overflow-hidden">
+    <img id="center-decor-img" src="image-center.png" alt="Center Ornament" 
+         class="w-[120vw] sm:w-[100vw] max-w-[1100px] h-auto opacity-0 animate-center-decor select-none pointer-events-none"
+         style="animation-delay: 3.8s;">
+  </div>
+
   <!-- ══════════════════════════════════════════════
        INVITATION COVER (OPENING)
   ══════════════════════════════════════════════ -->
   <div id="invitation-cover" onclick="startInvitation()"
     class="fixed inset-0 z-[99999] cursor-pointer group overflow-hidden transition-all duration-[1500ms] ease-in-out">
 
-    <!-- Background Image with Zoom Animation -->
-    <div class="absolute inset-0 z-0 scale-105 animate-opening-zoom">
-      <img id="opening-img" src="opening.png" alt="Opening Background" class="w-full h-full object-cover">
-    </div>
+    <!-- Background Gradient (no image) -->
+    <div class="absolute inset-0 z-0" style="background: 
+        radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0.11) 60%, transparent 95%),
+        radial-gradient(circle at 0% 25%, rgba(143, 175, 149, 0.28) 0%, transparent 28%),
+        radial-gradient(circle at 0% 75%, rgba(143, 175, 149, 0.28) 0%, transparent 28%),
+        radial-gradient(circle at 100% 25%, rgba(143, 175, 149, 0.28) 0%, transparent 28%),
+        radial-gradient(circle at 100% 75%, rgba(143, 175, 149, 0.28) 0%, transparent 28%),
+        linear-gradient(135deg, #FAF8F5 0%, #f0eadf 40%, #eae1d6 70%, #FAF8F5 100%);"></div>
 
-    <!-- Minimalist Transparent Overlay (To capture clicks) -->
-    <div class="absolute inset-0 bg-black/5 z-10"></div>
+    <!-- Overlay gelap tipis agar teks & foto terbaca -->
+    <div class="absolute inset-0 bg-black/10 z-10"></div>
+
+    <!-- ── Cover Content ── -->
+    <div class="absolute inset-0 z-20 flex flex-col items-center justify-center px-4">
+
+      <!-- Label atas -->
+      <p class="font-sans text-[11px] sm:text-[14px] tracking-[0.4em] uppercase text-gold-dark mb-1 opacity-0 animate-cover-in"
+        style="animation-delay:0.3s">
+        The Wedding of
+      </p>
+
+      <!-- Divider -->
+      <div class="gold-line w-16 sm:w-28 mx-auto mb-4 opacity-0 animate-cover-in" style="animation-delay:0.5s"></div>
+
+      <!-- Nama Pengantin -->
+      <div class="opacity-0 animate-cover-in" style="animation-delay:0.7s">
+        <h1
+          class="font-serif italic text-gold-dark text-3xl sm:text-7xl md:text-8xl leading-none mb-4 text-center px-2">
+          Rafi &amp; Salsabila</h1>
+      </div>
+
+      <!-- Foto Kedua Mempelai -->
+      <div class="flex items-end justify-center gap-3 sm:gap-10 mb-6 opacity-0 animate-cover-in"
+        style="animation-delay:0.9s">
+        <!-- Foto Pengantin Pria -->
+        <div class="flex flex-col items-center gap-2">
+          <div class="cover-photo-frame">
+            <img src="groom.png" alt="Pengantin Pria" class="cover-photo-img">
+          </div>
+          <span
+            class="font-sans text-[10px] sm:text-[13px] tracking-wider uppercase text-gold-dark font-semibold">Groom</span>
+        </div>
+
+        <!-- Ampersand Tengah (Subtle decor) -->
+        <div class="flex flex-col items-center mb-6 sm:mb-8">
+          <span class="text-gold text-xl sm:text-3xl">✦</span>
+        </div>
+
+        <!-- Foto Pengantin Wanita -->
+        <div class="flex flex-col items-center gap-2">
+          <div class="cover-photo-frame">
+            <img src="bride.png" alt="Pengantin Wanita" class="cover-photo-img">
+          </div>
+          <span
+            class="font-sans text-[10px] sm:text-[13px] tracking-wider uppercase text-gold-dark font-semibold">Bride</span>
+        </div>
+      </div>
+
+
+      <!-- Tanggal -->
+      <p class="font-serif italic text-charcoal/70 text-base sm:text-xl mt-6 mb-5 opacity-0 animate-cover-in"
+        style="animation-delay:1s">
+        Sabtu, 14 Juni 2026
+      </p>
+
+      <!-- Divider bawah -->
+      <div class="gold-line w-16 sm:w-28 mx-auto mb-6 opacity-0 animate-cover-in" style="animation-delay:1.1s"></div>
+
+      <!-- Ketuk untuk membuka -->
+      <p class="font-sans text-[10px] sm:text-[13px] tracking-[0.3em] uppercase text-charcoal/50 opacity-0 animate-cover-in animate-pulse-slow"
+        style="animation-delay:1.4s">
+        Silakan ketuk untuk membuka
+      </p>
+
+    </div><!-- /cover content -->
   </div>
 
-  <!-- Global Background Decor (Watermark) -->
-  <div class="fixed inset-0 pointer-events-none z-[1] overflow-hidden" aria-hidden="true">
-    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1400px] h-auto opacity-[0.12]"
-      aria-hidden="true">
-      <img id="center-decor-img" src="image-center.png" alt="Center Decor" class="w-full h-auto object-contain">
-    </div>
-  </div>
+
 
   <!-- Global Foreground Overlays (Ornaments & Falling Petals - On top) -->
   <div class="fixed inset-0 pointer-events-none z-[100] overflow-hidden" aria-hidden="true">
@@ -79,26 +172,38 @@
     <div class="absolute -top-5 -left-5 w-72 sm:w-96 md:w-[600px] opacity-0 animate-flower-tl"
       style="animation-delay: 3.2s;">
       <img src="flower.png" alt="Flower Ornament Left" class="w-full h-auto select-none animate-sway"
-        style="filter: drop-shadow(2px 2px 15px rgba(0,0,0,0.05)); clip-path: inset(0 0 30% 0);">
+        style="clip-path: inset(0 0 30% 0);">
     </div>
 
 
     <div class="absolute -top-5 -right-5 w-72 sm:w-96 md:w-[600px] opacity-0 animate-flower-tr"
       style="animation-delay: 3.4s;">
       <img src="flower.png" alt="Flower Ornament Right" class="w-full h-auto select-none animate-sway"
-        style="filter: drop-shadow(-2px 2px 15px rgba(0,0,0,0.05)); clip-path: inset(0 0 30% 0); transform: scaleX(-1);">
+        style="clip-path: inset(0 0 30% 0); transform: scaleX(-1);">
     </div>
 
     <!-- Bottom Corner Ornaments -->
     <div class="absolute -bottom-8 -left-8 w-64 sm:w-80 md:w-[500px] opacity-0 animate-flower-bl"
       style="animation-delay: 3.6s;">
       <img src="flower-2.png" alt="Flower Ornament Bottom Left" class="w-full h-auto select-none animate-sway"
-        style="filter: drop-shadow(2px -2px 15px rgba(0,0,0,0.05)); transform: scaleX(-1);">
+        style="transform: scaleX(-1);">
     </div>
     <div class="absolute -bottom-8 -right-8 w-64 sm:w-80 md:w-[500px] opacity-0 animate-flower-br"
       style="animation-delay: 3.8s;">
-      <img src="flower-2.png" alt="Flower Ornament Bottom Right" class="w-full h-auto select-none animate-sway"
-        style="filter: drop-shadow(-2px -2px 15px rgba(0,0,0,0.05));">
+      <img src="flower-2.png" alt="Flower Ornament Bottom Right" class="w-full h-auto select-none animate-sway">
+    </div>
+
+    <!-- Beautiful Floating Butterflies -->
+    <!-- Top Left Butterfly -->
+    <div class="absolute top-[15%] left-[5%] w-16 sm:w-24 h-16 sm:h-24 opacity-0 animate-flower-tl pointer-events-none"
+      style="animation-delay: 4.2s; z-index: 101;">
+      <div id="butterfly-1" class="w-full h-full butterfly-fly-1"></div>
+    </div>
+
+    <!-- Bottom Right Butterfly -->
+    <div class="absolute bottom-[20%] right-[5%] w-16 sm:w-24 h-16 sm:h-24 opacity-0 animate-flower-br pointer-events-none"
+      style="animation-delay: 4.5s; z-index: 101;">
+      <div id="butterfly-2" class="w-full h-full butterfly-fly-2"></div>
     </div>
 
     <!-- Falling Rose Petals (Brightened & Textured) -->
@@ -304,10 +409,14 @@
     </div>
 
 
-    <!-- Bottom fade out -->
-    <div class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-10"
-      style="background: linear-gradient(to bottom, transparent, rgba(250, 246, 238, 0.82) 90%);"></div>
   </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider" aria-hidden="true">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-star">✦</span>
+    <div class="section-divider-line"></div>
+  </div>
 
   <!-- ══════════════════════════════════════════════
        COUPLE SECTION
@@ -431,11 +540,17 @@
 
   </section>
 
+  <!-- Section Divider -->
+  <div class="section-divider" aria-hidden="true">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-star">✦</span>
+    <div class="section-divider-line"></div>
+  </div>
 
   <!-- ══════════════════════════════════════════════
        THE LOVE STORY SECTION (GSAP Component)
    ══════════════════════════════════════════════ -->
-  <section id="love-story" class="py-20 sm:py-32 bg-ivory relative overflow-hidden">
+  <section id="love-story" class="py-20 sm:py-32 bg-transparent relative overflow-hidden">
     <!-- Decorative element -->
     <div class="absolute top-0 right-0 p-6 sm:p-12 opacity-10 pointer-events-none">
       <svg width="120" height="120" viewBox="0 0 100 100" class="text-gold sm:w-[200px] sm:h-[200px]">
@@ -549,6 +664,13 @@
       </div>
     </div>
   </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider" aria-hidden="true">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-star">✦</span>
+    <div class="section-divider-line"></div>
+  </div>
 
   <!-- ══════════════════════════════════════════════
        EVENT SECTION (ACARA)
@@ -888,14 +1010,131 @@
     </div>
   </section>
 
+  <!-- Section Divider -->
+  <div class="section-divider" aria-hidden="true">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-star">✦</span>
+    <div class="section-divider-line"></div>
+  </div>
 
+  <!-- ══════════════════════════════════════════════
+       GALLERY SECTION
+   ══════════════════════════════════════════════ -->
+  <section id="gallery" class="py-20 sm:py-32 relative overflow-hidden">
 
+    <!-- Section BG Decor -->
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 left-0 w-64 opacity-10">
+        <img src="flower.png" alt="" class="w-full h-auto">
+      </div>
+      <div class="absolute bottom-0 right-0 w-64 opacity-10 scale-x-[-1]">
+        <img src="flower-2.png" alt="" class="w-full h-auto">
+      </div>
+    </div>
 
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+
+      <!-- Header -->
+      <div class="text-center mb-12 sm:mb-16 gallery-header">
+        <p class="font-sans text-[10px] sm:text-[12px] tracking-widest-3 uppercase text-gold mb-3 sm:mb-4">Our Moments
+        </p>
+        <h2 class="font-serif text-gold-shimmer text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-6 italic">Galeri Foto</h2>
+        <div class="gold-line w-16 sm:w-24 mx-auto mb-6"></div>
+        <p class="font-body text-charcoal/60 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+          Momen-momen indah yang kami abadikan bersama dalam perjalanan cinta kami.
+        </p>
+      </div>
+
+      <!-- Masonry Grid -->
+      <div class="gallery-grid" id="gallery-grid">
+
+        <!-- Item 1 — tall -->
+        <div class="gallery-item gallery-item--tall" data-index="0">
+          <div class="gallery-item__inner">
+            <img src="bride.png" alt="Foto Pengantin 1" loading="lazy">
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__icon">⊕</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="gallery-item" data-index="1">
+          <div class="gallery-item__inner">
+            <img src="groom.png" alt="Foto Pengantin 2" loading="lazy">
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__icon">⊕</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="gallery-item" data-index="2">
+          <div class="gallery-item__inner">
+            <img src="hero-bg.png" alt="Foto Prewed 1" loading="lazy">
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__icon">⊕</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 — wide -->
+        <div class="gallery-item gallery-item--wide" data-index="3">
+          <div class="gallery-item__inner">
+            <img src="opening.png" alt="Foto Prewed 2" loading="lazy">
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__icon">⊕</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="gallery-item" data-index="4">
+          <div class="gallery-item__inner">
+            <img src="event-bg.png" alt="Foto Venue" loading="lazy">
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__icon">⊕</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6 — tall -->
+        <div class="gallery-item gallery-item--tall" data-index="5">
+          <div class="gallery-item__inner">
+            <img src="bride.png" alt="Foto Pengantin 3" loading="lazy">
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__icon">⊕</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /gallery-grid -->
+
+    </div><!-- /container -->
+
+    <!-- Lightbox Overlay -->
+    <div id="gallery-lightbox" class="gallery-lightbox" aria-hidden="true">
+      <button class="gallery-lightbox__close" id="lightbox-close" aria-label="Tutup">✕</button>
+      <button class="gallery-lightbox__prev" id="lightbox-prev" aria-label="Sebelumnya">‹</button>
+      <button class="gallery-lightbox__next" id="lightbox-next" aria-label="Berikutnya">›</button>
+      <div class="gallery-lightbox__content">
+        <img id="lightbox-img" src="" alt="Foto Pengantin">
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider" aria-hidden="true">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-star">✦</span>
+    <div class="section-divider-line"></div>
+  </div>
 
   <!-- ══════════════════════════════════════════════
        GIFT SECTION (TANDA KASIH)
    ══════════════════════════════════════════════ -->
-  <section id="gift" class="py-20 sm:py-32 relative overflow-hidden bg-white/30">
+  <section id="gift" class="py-20 sm:py-32 relative overflow-hidden bg-transparent">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
       <div class="text-center mb-12 sm:mb-16 gift-header">
         <p class="font-sans text-[10px] sm:text-[12px] tracking-widest-3 uppercase text-gold mb-3 sm:mb-4">Wedding Gift
@@ -984,6 +1223,13 @@
       </div>
     </div>
   </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider" aria-hidden="true">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-star">✦</span>
+    <div class="section-divider-line"></div>
+  </div>
 
   <!-- ══════════════════════════════════════════════
        CLOSING SECTION
